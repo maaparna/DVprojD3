@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IMDB movies genre and ratings</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .container3 {
+            float: left;
+            position: relative;
+            padding-right: 30px;
+            padding-left: 250px;
+        }
+
+        .container1 {
+            float: left;
+            position: relative;
+        }
+        .container {
+            float: left;
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .container2 {
+            float: left;
+            position: relative;
+            width: 500px;
+            height: 100px;
+        }
+
+        .container4 {
+            float: initial;
+            position: relative;
+            width: 500px;
+            height: 100px;
+            padding-right: 30px;
+            padding-left: 250px;
+        }
+        col {
+            background-color: #d3d3d3;
+        }
+
+        p {
+            width: 500px;
+        }
+
+            p.a {
+                word-break: normal;
+            }
+            p.b {
+                word-break: normal;
+                width : 600px;
+                height: 400px;
+            }
+    </style>
+
+</head>
+
+<body>
+    <h1> The IMDB movies and ratings </h1>
+    <form>
+        <label for="year">Select a year:</label>
+        <select name="year" id="year">
+            <option value="2006">2006</option>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016" selected>2016</option>
+        </select>
+    </form>
+    <div class="container1" id="area1"></div>
+    <div class="container3" id="area12">
+        <div class="container4" id="area13"></div>
+        <img src="IMDB_photo.png" width="600" height="200">
+        <p class="b">This page gives you view of the IMDB ratings of the movies from the year 2006 to 2016<br/> The chart on the left consolidates the rating by Genre for the selected year. <br />
+        When a <b>genre</b> is selected a new chart is created below that lists the movies and its ratings below.<br />
+        In the bottom chart when a movie is selected a tooltip box with further details about the movie will be displayed.<br />
+        Also, note that the same process would apply to any year selected in the dropdown list provided below the title.</p>
+    </div>
+   
+    <div class="container1" id="area2">
+     
+    </div>
+    <div class="container1" id="area31">
+        <div class="container2" id="area32"></div>
+        <div id="area3"></div>
+
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
