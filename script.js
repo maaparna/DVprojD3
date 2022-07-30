@@ -21,61 +21,6 @@ var height1 = 700 - margin.top - margin.bottom;
 var width2 = 700 - margin.left - margin.right;
 var height2 = 1200 - margin.top - margin.bottom;
 
-//first chart
-
-var svg = d3.select("#area1")
-    .append('svg')
-    .attr('width', width1 + margin.left + margin.right)
-    .attr('height', height1 + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-svg.append("text")
-    .attr("x", width1 / 2)
-    .attr("y", -10)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Rating/Year by Genre");
-
-//first chart
-
-var x_scale = d3.scaleLinear()
-    .rangeRound([0, width1]);
-
-var y_scale = d3.scaleBand()
-    .range([0, height1])
-    .padding(0.1);
-
-
-
-//first chart
-
-svg.append('g')
-    .attr('class', 'x axis')
-    .attr('transform', 'translate(0,' + height1 + ')');
-
-svg.append("text")
-    .attr("transform", "translate(" + (width1 / 2) + " ," + (height1 + 40) + ")")
-    .style("text-anchor", "middle")
-    .text("Rating");
-
-svg.append('g')
-    .attr('class', 'y axis');
-
-svg.append("text")
-    .attr("x", -20)
-    .attr("y", -10)
-    .style("text-anchor", "middle")
-    .text("Genre");
-
-
-//first chart
-
-var y_axis = d3.axisLeft(y_scale);
-var x_axis = d3.axisBottom(x_scale);
-
-
-
 
 var colour_scale = d3.scaleOrdinal()
     //.range(["gold", "blue", "green", "yellow", "black", "grey", "darkgreen", "pink", "brown", "slateblue", "grey1", "orange"]);
@@ -94,11 +39,64 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
     update('2016');
 
     function update(year) {
+        var svg = d3.select("#area1")
+            .append('svg')
+            .attr('width', width1 + margin.left + margin.right)
+            .attr('height', height1 + margin.top + margin.bottom)
+            .append('g')
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+        svg.append("text")
+            .attr("x", width1 / 2)
+            .attr("y", -10)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text("Rating/Year by Genre");
+
+        //first chart
+
+        var x_scale = d3.scaleLinear()
+            .rangeRound([0, width1]);
+
+        var y_scale = d3.scaleBand()
+            .range([0, height1])
+            .padding(0.1);
+
+
+
+        //first chart
+
+        svg.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + height1 + ')');
+
+        svg.append("text")
+            .attr("transform", "translate(" + (width1 / 2) + " ," + (height1 + 40) + ")")
+            .style("text-anchor", "middle")
+            .text("Rating");
+
+        svg.append('g')
+            .attr('class', 'y axis');
+
+        svg.append("text")
+            .attr("x", -20)
+            .attr("y", -10)
+            .style("text-anchor", "middle")
+            .text("Genre");
+
+        //first chart
+
+        var y_axis = d3.axisLeft(y_scale);
+        var x_axis = d3.axisBottom(x_scale);
+
         t = d3.transition()
             .duration(1500);
         console.log(year);
         var fData = csv_data.filter(function (d) { return d.Year === year; });
         data = fData;
+
+        
+        
 
         var iData = d3.rollup(fData, function (d) { return d3.sum(d, function (d) { return d.Rating; }); }, function (d) { return d.Genre; });
 
@@ -118,6 +116,27 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
         x_scale.domain([0, max_value]);
         colour_scale.domain(data.map(function (d) { return d.Genre; }));
 
+        const annotations = [
+            {
+                note: {
+                    label: "From 2006-2016, Action movies have a 47.1% share of the total revenue at 33,403.82(in millions)",
+                    title: "Action movies revenue",
+                    wrap: 150,  // try something smaller to see text split in several lines
+                    bgPadding: { "top": 15, "left": 10, "right": 10, "bottom": 10 },
+
+                },
+                data: { y: "Action", x: 100 },
+                disable:["connector"],
+                className: "show-bg",
+                dy: 100,
+                dx: 330        
+            }]
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations);
+
+        svg.append("g")
+            .attr("class", "annotation-group")
+            .call(makeAnnotations);
 
         var bars = svg.selectAll('.bar')
             .data(mData);
@@ -153,6 +172,31 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                 return colour_scale(d[0]);
             });
 
+        const f = d3.format(".1f");
+
+        svg.selectAll("text.analysis-label")
+            .data(mData)
+            .enter()
+            .append('text')
+            .text(function (d) {
+                return f(d[1]);
+            })
+            .attr("x", function (d) {
+                return x_scale(d[1]) + 15;
+            })
+            .attr("y", function (d) {
+                console.log(y_scale(d[0]));
+                console.log(y_scale(d[0]) + y_scale.bandwidth() * (0.5 + 0.1));
+                return y_scale(d[0]) + y_scale.bandwidth() * (0.5 + 0.1);
+
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black")
+            .attr("text-anchor", "middle")
+            .classed("analysis-label", true);
+
+
         svg.select('.x.axis')
             .transition(t)
             .call(x_axis);
@@ -160,6 +204,8 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
         svg.select('.y.axis')
             .transition(t)
             .call(y_axis);
+
+        
 
         function secondchart(genre) {
 
@@ -291,7 +337,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                     .append('div')
                     .attr('width', width2 + margin.left + margin.right)
                     .attr('height', height2 + margin.top + margin.bottom);
-                    //.attr('transform', 'translate(' + 50 + ',' + 100 + ')');
+                    //.attr('transform', 'translate(' + 200 + ',' + 0 + ')');
 
                 //var mytooltip=svg3.append("foreignObject")
                 //    .attr("width", width2 + margin.left + margin.right)
@@ -318,7 +364,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                     .style("display", "table-cell")  //The tooltip appears
 
                     .style("vertical-align", "top")
-                    .html("<p> </p><p> </p><p><b>Genre:</b> " + moData[0][0].Genre + "</p> <p> <b>Title:</b>" + moData[0][0].Title + "</p><p class=\"a\"> <b>Description:</b>" + moData[0][0].Description +
+                    .html("<p> </p><p> </p><p><b>Genre:</b> " + moData[0][0].Genre + "</p> <p> <b>Title:</b>" + moData[0][0].Title + "</p><p class=\"c\"> <b>Description:</b>" + moData[0][0].Description +
                     "</p><p><b> Director:</b>" + moData[0][0].Director + "</p><p> <b>Year:</b>" + moData[0][0].Year + "</p><p><b> Rating:</b>" + moData[0][0].Rating + "</p><p><b> Revenue(in millions):</b>" + moData[0][0].Revenue + "</p>");
 
            
@@ -347,6 +393,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
     var select = d3.select('#year');
     select.on('change', function () {
         console.log(this.value);
+        d3.select("#area1").html("");
         d3.select("#area2").html("");
         d3.select("#area3").html(""); 
         update(this.value);

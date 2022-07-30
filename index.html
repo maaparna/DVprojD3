@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>IMDB movies genre and ratings</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
     <style>
         .container3 {
             float: left;
@@ -22,6 +23,7 @@
             width: 200px;
             height: 200px;
         }
+
         .container2 {
             float: left;
             position: relative;
@@ -42,23 +44,38 @@
         }
 
         p {
-            width: 500px;
+            word-break: normal;
+            color: #000;
+            width:600px;
         }
+
+            p.b {
+                word-break: normal;
+                width: 600px;
+                color: #000;
+            }
 
             p.a {
                 word-break: normal;
+                width: 600px;
+                height: 600px;
+                color: #000;
             }
-            p.b {
+            p.c {
                 word-break: normal;
-                width : 600px;
-                height: 400px;
+                color: #000;
+            }
+        p em {
+                word-break: normal;
+                color:red;
             }
     </style>
 
 </head>
 
 <body>
-    <h1> The IMDB movies and ratings </h1>
+    
+    <h1>  <img src="IMDB.jpeg" width="1500" height="150"> </h1>
     <form>
         <label for="year">Select a year:</label>
         <select name="year" id="year">
@@ -75,25 +92,34 @@
             <option value="2016" selected>2016</option>
         </select>
     </form>
-    <div class="container1" id="area1"></div>
+    
+    <div class="container1" id="area1">
+    </div>
     <div class="container3" id="area12">
         <div class="container4" id="area13"></div>
-        <img src="IMDB_photo.png" width="600" height="200">
-        <p class="b">This page gives you view of the IMDB ratings of the movies from the year 2006 to 2016<br/> The chart on the left consolidates the rating by Genre for the selected year. <br />
-        When a <b>genre</b> is selected a new chart is created below that lists the movies and its ratings below.<br />
-        In the bottom chart when a movie is selected a tooltip box with further details about the movie will be displayed.<br />
-        Also, note that the same process would apply to any year selected in the dropdown list provided below the title.</p>
+        <h1> The IMDB movies and ratings </h1>
+        <p class="a">
+                This page gives you a view of the IMDB ratings of the movies from the year 2006 to 2016.<br /><br /> The chart on the left consolidates the rating by Genre for the selected year. <br /><br />
+                When a <b>genre</b> is selected, a new chart below lists the movies and their ratings.<br /><br />
+                In the bottom chart, when a movie is selected, a scorecard with further details about the movie will be displayed.<br /><br />
+                Also, note that the same process would apply to any year selected in the dropdown list provided below the title.<br /><br />
+                <em> <b>Please select a genre on the left chart and scroll down to see the list of movies</b></em><br /><br />
+                <em> <b>In the bottom chart, please select a movie to see further details in a scorecard.</b></em>
+        </p>
     </div>
-   
+
     <div class="container1" id="area2">
-     
-    </div>
-    <div class="container1" id="area31">
-        <div class="container2" id="area32"></div>
-        <div id="area3"></div>
 
     </div>
-    
+    <div class="container1" id="area31">
+        <div class="container2" id="area32">   
+        </div>
+
+        <div id="area3"></div>
+
+
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
