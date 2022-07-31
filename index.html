@@ -2,82 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMDB movies genre and ratings</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
     <style>
-        .container3 {
-            float: left;
-            position: relative;
-            padding-right: 30px;
-            padding-left: 250px;
+
+     
+
+        p{
+            color:black ;
+        }
+        p.a {
+            color: white;
+        }
+        div {
+            color: #fff;
+            font-family: Tahoma, Verdana, Segoe, sans-serif;
+            padding: 10px;
         }
 
-        .container1 {
-            float: left;
-            position: relative;
-        }
-        .container {
-            float: left;
-            position: relative;
-            width: 200px;
-            height: 200px;
+        .ctr {
+            background-color: darkgray;
+            color: black;
+            display: flex;
         }
 
-        .container2 {
-            float: left;
-            position: relative;
-            width: 500px;
-            height: 100px;
+        .ctrtop {
+            background-color: lightgray;
+         
+            display: flex;
         }
 
-        .container4 {
-            float: initial;
-            position: relative;
-            width: 500px;
-            height: 100px;
-            padding-right: 30px;
-            padding-left: 250px;
-        }
-        col {
-            background-color: #d3d3d3;
+        .fixed {
+            background-color: darkgray;
+            width: 700px;
         }
 
-        p {
-            word-break: normal;
-            color: #000;
-            width:600px;
+        .flex-item {
+            background-color: lightgray;
+            flex-grow: 1;
+        }
+        .annotation text {
+            fill: red;
         }
 
-            p.b {
-                word-break: normal;
-                width: 600px;
-                color: #000;
-            }
-
-            p.a {
-                word-break: normal;
-                width: 600px;
-                height: 600px;
-                color: #000;
-            }
-            p.c {
-                word-break: normal;
-                color: #000;
-            }
-        p em {
-                word-break: normal;
-                color:red;
-            }
     </style>
 
 </head>
 
 <body>
-    
-    <h1>  <img src="IMDB.jpeg" width="1500" height="150"> </h1>
+    <h2> The IMDB movies and ratings </h2>
+
+    <div class="ctrtop">
+        <p>
+            This page gives you the IMDB ratings of the movies for the selected year. Use the <i><b>Select a year:</b></i> dropdown to select a year between 2006 and 2016
+
+            <br /> The chart on the left consolidates the rating by Genre for the selected year. <br />
+            Select a <b>genre</b> to see a new chart on the right with the movies and their ratings.<br /><br />
+            Click on a movie to get a scorecard with further details<br /><br />
+        </p>
+    </div>
     <form>
-        <label for="year">Select a year:</label>
+        <i> <b> <label for="year" style="font-size: 22px; ">Select a year:</label></b></i>
         <select name="year" id="year">
             <option value="2006">2006</option>
             <option value="2007">2007</option>
@@ -92,32 +79,25 @@
             <option value="2016" selected>2016</option>
         </select>
     </form>
-    
-    <div class="container1" id="area1">
-    </div>
-    <div class="container3" id="area12">
-        <div class="container4" id="area13"></div>
-        <h1> The IMDB movies and ratings </h1>
-        <p class="a">
-                This page gives you a view of the IMDB ratings of the movies from the year 2006 to 2016.<br /><br /> The chart on the left consolidates the rating by Genre for the selected year. <br /><br />
-                When a <b>genre</b> is selected, a new chart below lists the movies and their ratings.<br /><br />
-                In the bottom chart, when a movie is selected, a scorecard with further details about the movie will be displayed.<br /><br />
-                Also, note that the same process would apply to any year selected in the dropdown list provided below the title.<br /><br />
-                <em> <b>Please select a genre on the left chart and scroll down to see the list of movies</b></em><br /><br />
-                <em> <b>In the bottom chart, please select a movie to see further details in a scorecard.</b></em>
-        </p>
-    </div>
+    <!-- <div class="container1" id="area1">
+     </div>
 
-    <div class="container1" id="area2">
+     <div class="container1" id="area2">
 
-    </div>
-    <div class="container1" id="area31">
-        <div class="container2" id="area32">   
-        </div>
+     </div>
+     <div class="container1" id="area31">
+         <div class="container2" id="area32">
+         </div>
 
-        <div id="area3"></div>
+         <div id="area3"></div>
 
 
+     </div>
+        -->
+    <div class="ctr">
+        <div class="fixed" id="area1"></div>
+        <div class="flex-item" id="area2"></div>
+        <div class="flex-item" id="area3"></div>
     </div>
 
     <script src="script.js"></script>
