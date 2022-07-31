@@ -50,7 +50,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
             .attr("x", width1 / 2)
             .attr("y", -10)
             .attr("text-anchor", "middle")
-            .style("font-size", "16px")
+            .style("font-size", "18px")
             .text("Rating/Year by Genre");
 
         //first chart
@@ -73,6 +73,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
         svg.append("text")
             .attr("transform", "translate(" + (width1 / 2) + " ," + (height1 + 40) + ")")
             .style("text-anchor", "middle")
+            .style("font-size", "14px")
             .text("Rating");
 
         svg.append('g')
@@ -82,6 +83,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
             .attr("x", -20)
             .attr("y", -10)
             .style("text-anchor", "middle")
+            .style("font-size", "14px")
             .text("Genre");
 
         //first chart
@@ -122,7 +124,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                     label: "From 2006-2016, Action movies have a 47.1% share of the total revenue at 33,403.82(in millions)",
                     title: "Action movies revenue",
                     wrap: 150,  // try something smaller to see text split in several lines
-                    bgPadding: { "top": 15, "left": 10, "right": 10, "bottom": 10 },
+                    bgPadding: { "top": 15, "left": 10, "right": 10, "bottom": 10 }
 
                 },
                 data: { y: "Action", x: 100 },
@@ -137,6 +139,9 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
         svg.append("g")
             .attr("class", "annotation-group")
             .call(makeAnnotations);
+
+        svg.selectAll(".annotation-note text")
+            .style("fill", "red");
 
         var bars = svg.selectAll('.bar')
             .data(mData);
@@ -197,12 +202,14 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
             .classed("analysis-label", true);
 
 
-        svg.select('.x.axis')
+       svg.select('.x.axis')
             .transition(t)
+            .style("color","black")
             .call(x_axis);
 
         svg.select('.y.axis')
             .transition(t)
+            .attr("color","black")
             .call(y_axis);
 
         
@@ -222,7 +229,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                 .attr("x", width2 / 2)
                 .attr("y", -5)
                 .attr("text-anchor", "middle")
-                .style("font-size", "16px")
+                .style("font-size", "18px")
                 .text("Movie Rating by Genre/Year");
 
             //second chart
@@ -243,6 +250,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
             svg2.append("text")
                 .attr("transform", "translate(" + (width2 / 2) + " ," + (height2 + 40) + ")")
                 .style("text-anchor", "middle")
+                .style("font-size", "14px")
                 .text("Rating");
 
 
@@ -253,6 +261,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                 .attr("x", -20)
                 .attr("y", -10)
                 .style("text-anchor", "middle")
+                .style("font-size", "14px")
                 .text("Movies");
 
 
@@ -323,10 +332,12 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
 
             svg2.select('.x.axis')
                 .transition(t1)
+                .style("color", "black")
                 .call(x_axis2);
 
             svg2.select('.y.axis')
                 .transition(t1)
+                .style("color", "black")
                 .call(y_axis2);
 
             function tabulate(movie) {
@@ -347,7 +358,8 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                 svg3.attr("class", "container1")
                     .style("opacity", "0")
                     .style("display", "none")
-                    .style("background-color", "#dcdcdc");
+                    .style("background-color", "white")
+                    .style("color","white");
 
 
                 var movData = data.filter(function (d) { return d.Title === movie; });
@@ -364,8 +376,8 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                     .style("display", "table-cell")  //The tooltip appears
 
                     .style("vertical-align", "top")
-                    .html("<p> </p><p> </p><p><b>Genre:</b> " + moData[0][0].Genre + "</p> <p> <b>Title:</b>" + moData[0][0].Title + "</p><p class=\"c\"> <b>Description:</b>" + moData[0][0].Description +
-                    "</p><p><b> Director:</b>" + moData[0][0].Director + "</p><p> <b>Year:</b>" + moData[0][0].Year + "</p><p><b> Rating:</b>" + moData[0][0].Rating + "</p><p><b> Revenue(in millions):</b>" + moData[0][0].Revenue + "</p>");
+                    .html("<p></p><p> </p><p><b>Genre:</b> " + moData[0][0].Genre + "</p> <p> <b>Title:</b>" + moData[0][0].Title + "</p><p> <b>Description:</b>" + moData[0][0].Description +
+                    "</p><p><b> Director:</b>" + moData[0][0].Director + "</p><p><b>Year:</b>" + moData[0][0].Year + "</p><p><b> Rating:</b>" + moData[0][0].Rating + "</p><p><b> Revenue(in millions):</b>" + moData[0][0].Revenue + "</p>");
 
            
             }
