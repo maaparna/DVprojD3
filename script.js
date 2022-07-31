@@ -29,7 +29,7 @@ var colour_scale = d3.scaleOrdinal()
 
 
 
-var data, t, t1,rows;
+var data, t, t1,rows,movieyear;
 
 d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-Movie-Data.csv').then(function (csv_data) {
 
@@ -39,6 +39,8 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
     update('2016');
 
     function update(year) {
+
+        movieyear = year;
         var svg = d3.select("#area1")
             .append('svg')
             .attr('width', width1 + margin.left + margin.right)
@@ -264,7 +266,88 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                 .style("font-size", "14px")
                 .text("Movies");
 
+            if (genre == 'Action' && movieyear == 2008) {
 
+                const annotations = [
+                    {
+                        note: {
+                            label: "Christopher Nolan's The Dark Knight movie is the most popular at 1791916 votes and 533.32 millions in revenue from 2006-2016 movies",
+                            title: "The Dark Knight",
+                            wrap: 150,  // try something smaller to see text split in several lines
+                            bgPadding: { "top": 15, "left": 10, "right": 10, "bottom": 10 }
+
+                        },
+                        data: { y: "The Dark Knight", x: 9 },
+                        disable: ["connector"],
+                        className: "show-bg",
+                        dy: 200,
+                        dx: 330
+                    }]
+                const makeAnnotations = d3.annotation()
+                    .annotations(annotations);
+
+                svg2.append("g")
+                    .attr("class", "annotation-group")
+                    .call(makeAnnotations);
+
+                svg2.selectAll(".annotation-note text")
+                    .style("fill", "red");
+            }
+            if (genre == 'Action' && movieyear == 2010) {
+
+                const annotations = [
+                    {
+                        note: {
+                            label: "Christopher Nolan's Inception movie is the second most popular at 1583625 votes and 292.57.32 millions in revenue from 2006-2016 movies",
+                            title: "Inception",
+                            wrap: 150,  // try something smaller to see text split in several lines
+                            bgPadding: { "top": 15, "left": 10, "right": 10, "bottom": 10 }
+
+                        },
+                        data: { y: "Inception", x: 8.8 },
+                        disable: ["connector"],
+                        className: "show-bg",
+                        dy: 200,
+                        dx: 330
+                    }]
+                const makeAnnotations = d3.annotation()
+                    .annotations(annotations);
+
+                svg2.append("g")
+                    .attr("class", "annotation-group")
+                    .call(makeAnnotations);
+
+                svg2.selectAll(".annotation-note text")
+                    .style("fill", "red");
+            }
+            
+            if (genre == 'Action' && movieyear == 2012) {
+
+                const annotations = [
+                    {
+                        note: {
+                            label: "Christopher Nolan's The Dark Knight Rises movie is the third most popular at 1222645 votes and 448.13 millions in revenue from 2006-2016 movies",
+                            title: "The Dark Knight Rises",
+                            wrap: 150,  // try something smaller to see text split in several lines
+                            bgPadding: { "top": 15, "left": 10, "right": 10, "bottom": 10 }
+
+                        },
+                        data: { y: "JThe Dark Knight Rises", x: 8.8 },
+                        disable: ["connector"],
+                        className: "show-bg",
+                        dy: 200,
+                        dx: 350
+                    }]
+                const makeAnnotations = d3.annotation()
+                    .annotations(annotations);
+
+                svg2.append("g")
+                    .attr("class", "annotation-group")
+                    .call(makeAnnotations);
+
+                svg2.selectAll(".annotation-note text")
+                    .style("fill", "red");
+            }
 
             //second chart
 
