@@ -130,7 +130,7 @@ d3.csv('https://raw.githubusercontent.com/maaparna/maaparna.github.io/main/IMDB-
                 data: { y: "Action", x: 100 },
                 disable:["connector"],
                 className: "show-bg",
-                dy: 100,
+                dy: 200,
                 dx: 330        
             }]
         const makeAnnotations = d3.annotation()
